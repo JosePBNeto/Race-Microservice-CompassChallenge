@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClassServiceImpl implements CarService {
+public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
     private final ModelMapper modelMapper;
@@ -20,7 +20,7 @@ public class ClassServiceImpl implements CarService {
     private static final String IDNOTFOUND = "Car ID not found";
 
     @Autowired
-    public ClassServiceImpl(CarRepository carRepository, ModelMapper modelMapper) {
+    public CarServiceImpl(CarRepository carRepository, ModelMapper modelMapper) {
         this.carRepository = carRepository;
         this.modelMapper = modelMapper;
     }

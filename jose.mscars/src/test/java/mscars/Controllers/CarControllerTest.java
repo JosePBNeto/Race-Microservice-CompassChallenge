@@ -12,7 +12,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.yaml.snakeyaml.events.Event;
 
+
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -31,21 +34,21 @@ class CarControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     void saveCar() throws Exception {
-        PilotEntity pilot = new PilotEntity(null, "Jao", "23");
-        CarDtoRequest car = new CarDtoRequest("Focus", "Ford", pilot, null);
-        CarDtoResponse carDtoResponse = new CarDtoResponse("asds234234","Focus", "Ford", pilot, null);
+        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+                .build();
+        CarDtoRequest carDtoRequest = CarDtoRequest.builder().model("Focus").brand("Ford").pilot(pilot).year(null)
+                .build();
+        CarDtoResponse carDtoResponse = CarDtoResponse.builder().id("a24dfasd").brand("Ford").model("Focus").year(null)
+                .build();
 
         when(carService.save(any())).thenReturn(carDtoResponse);
 
         mockMvc.perform(post("/cars")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(car)))
+                .content(objectMapper.writeValueAsString(carDtoRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(content().json((objectMapper.writeValueAsString(carDtoResponse))));
 
@@ -59,8 +62,10 @@ class CarControllerTest {
 
     @Test
     void getCArById() throws Exception {
-        PilotEntity pilot = new PilotEntity(null, "Jao", "23");
-        CarDtoResponse carDtoResponse = new CarDtoResponse("asds234234","Focus", "Ford", pilot, null);
+        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+                .build();
+        CarDtoResponse carDtoResponse = CarDtoResponse.builder().id("a24dfasd").brand("Ford").model("Focus").year(null)
+                .build();
 
         when(carService.findCarById("asds234234")).thenReturn(carDtoResponse);
 
@@ -97,9 +102,13 @@ class CarControllerTest {
     @Test
     void updateCar() throws Exception {
         String carIdToUpdate = "asdasd";
-        PilotEntity pilot = new PilotEntity(null, "Jao", "23");
-        CarDtoRequest carDtoRequest = new CarDtoRequest("Focus", "Ford", pilot, null);
-        CarDtoResponse carDtoResponse = new CarDtoResponse(carIdToUpdate,"Focus", "Ford", pilot, null);
+
+        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+                .build();
+        CarDtoRequest carDtoRequest = CarDtoRequest.builder().model("Focus").brand("Ford").pilot(pilot).year(null)
+                .build();
+        CarDtoResponse carDtoResponse = CarDtoResponse.builder().id("a24dfasd").brand("Ford").model("Focus").year(null)
+                .build();
 
         when(carService.updateCar(carIdToUpdate, carDtoRequest)).thenReturn(carDtoResponse);
 
