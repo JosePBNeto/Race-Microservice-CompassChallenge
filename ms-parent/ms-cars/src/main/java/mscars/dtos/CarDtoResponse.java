@@ -19,5 +19,5 @@ public class CarDtoResponse {
     private String model;
     @JsonIgnoreProperties({"id"})
     private PilotEntity pilot;
-    private Date year;
+    private String year;
 }
