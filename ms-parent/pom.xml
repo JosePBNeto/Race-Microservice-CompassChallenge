@@ -19,6 +19,7 @@
         <module>ms-cars</module>
         <module>ms-races</module>
         <module>ms-history</module>
+        <module>eureka-naming-server</module>
     </modules>
 
     <properties>
