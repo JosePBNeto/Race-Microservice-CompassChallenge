@@ -64,7 +64,7 @@ public class RaceServiceImpl implements RaceService {
 
     @Override
     public Race finishRace() {
-        Race race = new Race(track, carToRace);
+        Race race = new Race(null, track, carToRace);
         try {
             String resultRaceString = objectMapper.writeValueAsString(race);
             // TODO: ADD LOGIC TO NOT SAVE REPEATED QUEUES
