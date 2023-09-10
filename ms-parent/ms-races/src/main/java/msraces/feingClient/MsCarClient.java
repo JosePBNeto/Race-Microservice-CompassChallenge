@@ -1,6 +1,6 @@
 package msraces.feingClient;
 
-import msraces.dtos.Cars;
+import msraces.entities.Car;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -10,6 +10,6 @@ import java.util.List;
 public interface MsCarClient {
 
     @GetMapping
-    List<Cars> getAllCars();
+    List<Car> getAllCars();
 
 }

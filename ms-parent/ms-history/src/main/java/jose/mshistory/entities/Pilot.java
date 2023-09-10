@@ -1,9 +1,10 @@
-package msraces.entities;
+package jose.mshistory.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Pilot {
 
+    @Id
+    private String id;
     private String name;
     private String age;
 

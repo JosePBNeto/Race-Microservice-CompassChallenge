@@ -1,7 +1,11 @@
 package msraces.services;
-
-import msraces.dtos.Cars;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import msraces.entities.Car;
+import msraces.entities.Race;
+import msraces.entities.Track;
 import msraces.feingClient.MsCarClient;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,69 +17,97 @@ import java.util.Random;
 @Service
 public class RaceServiceImpl implements RaceService {
 
-    @Autowired
+
     private MsCarClient carClient;
+
+    private final RabbitTemplate rabbitTemplate;
+    private ObjectMapper objectMapper;
 
     private static final int MAX_CARS_TO_RACE = 10;
     private static final int MIN_CARS_TO_RACE = 3;
 
     private final Random random = new Random();
-    private List<Cars> carsToRace;
+
+    private List<Car> carToRace;
+
+    private Track track;
+
+    @Autowired
+    public RaceServiceImpl(MsCarClient carClient, RabbitTemplate rabbitTemplate, ObjectMapper objectMapper) {
+        this.carClient = carClient;
+        this.rabbitTemplate = rabbitTemplate;
+        this.objectMapper = objectMapper;
+    }
 
     @Override
-    public List<Cars> getCars() {
+    public List<Car> getCars() {
         return getRandomCarsToRace();
     }
 
     @Override
-    public List<Cars> startRace() {
+    public List<Car> startRace(Track track) {
+        this.track = new Track(track.getName(), track.getCountry(), track.getDate());
         assignRacePositions();
-        return carsToRace;
+        return carToRace;
     }
 
     @Override
-    public List<Cars> overtake(int position) {
+    public List<Car> overtake(int position) {
         if (isValidOvertakePosition(position)) {
-            Collections.swap(carsToRace, position, position + 1);
+            Collections.swap(carToRace, position, position + 1);
             updateRacePositions(position, position + 1);
         } else {
             throw new RuntimeException("Invalid overtaking position"); // TODO throw custom ex
         }
-        return carsToRace;
+        return carToRace;
     }
 
-    private List<Cars> getRandomCarsToRace() {
-        List<Cars> allCars = carClient.getAllCars();
-        carsToRace = new ArrayList<>();
+    @Override
+    public Race finishRace() {
+        Race race = new Race(track, carToRace);
+        try {
+            String resultRaceString = objectMapper.writeValueAsString(race);
+            // TODO: ADD LOGIC TO NOT SAVE REPEATED QUEUES
+            rabbitTemplate.convertAndSend("race-result-queue", resultRaceString);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e); // TODO: add custom exc
+        }
+        return race;
+    }
+
+    private List<Car> getRandomCarsToRace() {
+        List<Car> allCars = carClient.getAllCars();
+
+        carToRace = new ArrayList<>();
         int randomCarsToRace = getRandomNumberInRange(MIN_CARS_TO_RACE, MAX_CARS_TO_RACE);
 
         List<Integer> selectedIndices = new ArrayList<>();
 
-        while (carsToRace.size() < randomCarsToRace) {
+        while (carToRace.size() < randomCarsToRace) {
             int randomIndex = getRandomIndex(allCars.size());
 
             if (!selectedIndices.contains(randomIndex)) {
                 selectedIndices.add(randomIndex);
-                Cars randomCar = allCars.get(randomIndex);
-                carsToRace.add(randomCar);
+                Car randomCar = allCars.get(randomIndex);
+                carToRace.add(randomCar);
             }
         }
 
-        return carsToRace;
+        return carToRace;
     }
     private void assignRacePositions() {
-        for (int i = 0; i < carsToRace.size(); i++) {
-            carsToRace.get(i).setRaceCurrentPosition(i + 1);
+        for (int i = 0; i < carToRace.size(); i++) {
+            carToRace.get(i).setRaceCurrentPosition(i + 1);
         }
     }
 
     private boolean isValidOvertakePosition(int position) {
-        return position >= 0 && position < carsToRace.size() - 1;
+        return position >= 0 && position < carToRace.size() - 1;
     }
 
     private void updateRacePositions(int firstCarPosition, int secondCarPosition) {
-        carsToRace.get(firstCarPosition).setRaceCurrentPosition(firstCarPosition + 1);
-        carsToRace.get(secondCarPosition).setRaceCurrentPosition(secondCarPosition + 1);
+        carToRace.get(firstCarPosition).setRaceCurrentPosition(firstCarPosition + 1);
+        carToRace.get(secondCarPosition).setRaceCurrentPosition(secondCarPosition + 1);
     }
     private int getRandomNumberInRange(int min, int max) {
         return random.nextInt(max - min + 1) + min;
@@ -84,4 +116,5 @@ public class RaceServiceImpl implements RaceService {
     private int getRandomIndex(int maxIndex) {
         return random.nextInt(maxIndex);
     }
+
 }

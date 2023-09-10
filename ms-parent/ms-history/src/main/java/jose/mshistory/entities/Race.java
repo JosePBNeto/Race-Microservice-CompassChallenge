@@ -1,18 +1,18 @@
-package msraces.entities;
+package jose.mshistory.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
-public class Pilot {
+public class Race {
 
-    private String name;
-    private String age;
-
-
+    private Track track;
+    private List<Cars> cars;
 }

@@ -1,13 +1,17 @@
 package msraces.services;
 
-import msraces.dtos.Cars;
+import msraces.entities.Car;
+import msraces.entities.Race;
+import msraces.entities.Track;
 
 import java.util.List;
 public interface RaceService {
 
-    List<Cars> getCars();
+    List<Car> getCars();
 
-    List<Cars> startRace();
+    List<Car> startRace(Track track);
 
-    List<Cars> overtake(int position);
+    List<Car> overtake(int position);
+
+    Race finishRace();
 }

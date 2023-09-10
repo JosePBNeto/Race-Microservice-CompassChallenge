@@ -11,9 +11,6 @@ import org.springframework.data.annotation.Id;
 @Data
 @Builder
 public class PilotEntity {
-
-    @Id
-    private String id;
     private String name;
     private String age;
 

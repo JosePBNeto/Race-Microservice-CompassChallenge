@@ -1,4 +1,4 @@
-package msraces.entities;
+package jose.mshistory.entities;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TrackEntity {
+public class Track {
 
     private String name;
     private String country;

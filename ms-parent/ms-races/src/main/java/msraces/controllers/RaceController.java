@@ -1,6 +1,8 @@
 package msraces.controllers;
 
-import msraces.dtos.Cars;
+import msraces.entities.Car;
+import msraces.entities.Race;
+import msraces.entities.Track;
 import msraces.services.RaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +17,30 @@ public class RaceController {
     @Autowired
     private RaceService raceService;
     @GetMapping("/cars")
-    public ResponseEntity<List<Cars>> getCars() {
-        List<Cars> cars = raceService.getCars();
+    public ResponseEntity<List<Car>> getCars() {
+        List<Car> cars = raceService.getCars();
         return ResponseEntity.ok().body(cars);
     }
 
-    @GetMapping("/startRace")
-    public ResponseEntity<List<Cars>> simulateRace(){
-        List<Cars> cars = raceService.startRace();
+    @PostMapping("/start")
+    public ResponseEntity<List<Car>> simulateRace(@RequestBody Track track){
+        List<Car> cars = raceService.startRace(track);
         return ResponseEntity.ok().body(cars);
     }
 
     @PostMapping("/overtake/{position}")
-    public ResponseEntity<List<Cars>> overtakeCar(@PathVariable int position){
-        List<Cars> raceUpdate = raceService.overtake(position - 1);
+    public ResponseEntity<List<Car>> overtakeCar(@PathVariable int position){
+        List<Car> raceUpdate = raceService.overtake(position - 1);
         return ResponseEntity.ok().body(raceUpdate);
     }
+
+    @PostMapping("/finish")
+    public ResponseEntity<Race> finish(){
+        Race race = raceService.finishRace();
+        return ResponseEntity.ok().body(race);
+    }
+
+
 
 
 
