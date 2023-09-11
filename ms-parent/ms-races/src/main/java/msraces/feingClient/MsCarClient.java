@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(value = "ms-cars", url = "http://localhost:8081/cars")
+@FeignClient(name = "ms-cars")
 public interface MsCarClient {
 
-    @GetMapping
+    @GetMapping("/cars")
     List<Car> getAllCars();
 
 }
