@@ -29,8 +29,10 @@ public class HistoryServiceImpl implements HistoryService{
     }
 
     @Override
-    public RaceDtoResponse getRaceById() {
-        return null;
+    public RaceDtoResponse getRaceById(String id) {
+        return historyRepository.findById(id)
+                .map(this::mapToRaceDtoResponse)
+                .orElseThrow(() -> new RuntimeException("eee")); // TODO: CUSTOM EXECPTION
     }
 
     public RaceDtoResponse mapToRaceDtoResponse(Race race){

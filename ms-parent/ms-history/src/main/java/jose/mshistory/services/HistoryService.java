@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface HistoryService {
     public List<RaceDtoResponse> getAllRaces();
-    public RaceDtoResponse getRaceById();
+    public RaceDtoResponse getRaceById(String id);
 }
