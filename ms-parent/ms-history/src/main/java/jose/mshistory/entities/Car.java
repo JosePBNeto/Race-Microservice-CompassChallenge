@@ -1,5 +1,6 @@
 package jose.mshistory.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Car {
 
     private String year;
 
+    @JsonProperty("finishPosition")
     @Field("finishPosition")
     private int raceCurrentPosition;
 }

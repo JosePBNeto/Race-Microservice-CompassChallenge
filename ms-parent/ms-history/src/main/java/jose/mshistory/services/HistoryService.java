@@ -1,45 +1,10 @@
 package jose.mshistory.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jose.mshistory.entities.Race;
-import jose.mshistory.repositories.HistoryRepository;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.stereotype.Service;
+import jose.mshistory.dtos.RaceDtoResponse;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 
-@Service
-public class HistoryService {
-
-    private final RabbitTemplate rabbitTemplate;
-    private HistoryRepository historyRepository;
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    public HistoryService(RabbitTemplate rabbitTemplate, HistoryRepository historyRepository, ObjectMapper objectMapper) {
-        this.rabbitTemplate = rabbitTemplate;
-        this.historyRepository = historyRepository;
-        this.objectMapper = objectMapper;
-    }
-
-    @RabbitListener(queues = "race-result-queue")
-    public void saveRaceResult(@Payload String raceJsonString){
-        Race race = null;
-        try {
-            race = objectMapper.readValue(raceJsonString, Race.class);
-
-            race.setRegisterTimeStamp(LocalDateTime.now());
-            historyRepository.save(race);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
+public interface HistoryService {
+    public List<RaceDtoResponse> getAllRaces();
+    public RaceDtoResponse getRaceById();
 }

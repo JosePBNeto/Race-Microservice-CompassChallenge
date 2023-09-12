@@ -1,11 +1,11 @@
-package jose.mshistory.entities;
+package jose.mshistory.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import jose.mshistory.entities.Car;
+import jose.mshistory.entities.Track;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -16,8 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Document
-public class Race {
-    @Id
+public class RaceDtoResponse {
     private String id;
     private Track track;
     private List<Car> cars;
