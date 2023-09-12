@@ -31,8 +31,8 @@ public class HistoryServiceRabbitConsumer {
         Race race = null;
         try {
             race = objectMapper.readValue(raceJsonString, Race.class);
-
             race.setRegisterTimeStamp(LocalDateTime.now());
+            System.out.println(race);
             historyRepository.save(race);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

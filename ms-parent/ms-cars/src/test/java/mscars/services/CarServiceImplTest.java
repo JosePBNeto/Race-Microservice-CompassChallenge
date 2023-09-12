@@ -44,7 +44,7 @@ class CarServiceImplTest {
 
     @Test
     void save() {
-        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+        PilotEntity pilot = PilotEntity.builder().name("Jao").age("23")
                 .build();
         CarDtoRequest carDtoRequest = CarDtoRequest.builder().model("Focus").brand("Ford").pilot(pilot).year(null)
                 .build();
@@ -65,7 +65,7 @@ class CarServiceImplTest {
 
     @Test
     void testGetAllCars() {
-        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+        PilotEntity pilot = PilotEntity.builder().name("Jao").age("23")
                 .build();
         CarEntity carEntity = CarEntity.builder().id(EXISTING_CAR_ID).brand("Ford").model("Focus").year(null).pilot(pilot)
                 .build();
@@ -83,7 +83,7 @@ class CarServiceImplTest {
 
     @Test
     void findCarById() {
-        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+        PilotEntity pilot = PilotEntity.builder().name("Jao").age("23")
                 .build();
         CarEntity carEntity = CarEntity.builder().id(EXISTING_CAR_ID).brand("Ford").model("Focus").year(null).pilot(pilot)
                 .build();
@@ -108,7 +108,7 @@ class CarServiceImplTest {
 
     @Test
     void updateCar() {
-        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+        PilotEntity pilot = PilotEntity.builder().name("Jao").age("23")
                 .build();
         CarDtoRequest carDtoRequest = CarDtoRequest.builder().model("Focus").brand("Ford").pilot(pilot).year(null)
                 .build();

@@ -2,6 +2,7 @@ package jose.mshistory.services;
 
 import jose.mshistory.dtos.RaceDtoResponse;
 import jose.mshistory.entities.Race;
+import jose.mshistory.exceptions.IdNotFoundException;
 import jose.mshistory.repositories.HistoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class HistoryServiceImpl implements HistoryService{
     public RaceDtoResponse getRaceById(String id) {
         return historyRepository.findById(id)
                 .map(this::mapToRaceDtoResponse)
-                .orElseThrow(() -> new RuntimeException("eee")); // TODO: CUSTOM EXECPTION
+                .orElseThrow(() -> new IdNotFoundException("Race ID not found"));
     }
 
     public RaceDtoResponse mapToRaceDtoResponse(Race race){

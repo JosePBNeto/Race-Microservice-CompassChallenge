@@ -1,5 +1,6 @@
 package msraces.controllers;
 
+import jakarta.validation.Valid;
 import msraces.entities.Car;
 import msraces.entities.Race;
 import msraces.entities.Track;
@@ -23,7 +24,7 @@ public class RaceController {
     }
 
     @PostMapping("/start")
-    public ResponseEntity<List<Car>> simulateRace(@RequestBody Track track){
+    public ResponseEntity<List<Car>> simulateRace(@RequestBody @Valid Track track){
         List<Car> cars = raceService.startRace(track);
         return ResponseEntity.ok().body(cars);
     }

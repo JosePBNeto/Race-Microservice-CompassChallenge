@@ -22,7 +22,7 @@ public class Car {
 
     private String year;
 
-    @JsonProperty("finishPosition")
+    @JsonProperty("raceCurrentPosition")
     @Field("finishPosition")
-    private int raceCurrentPosition;
+    private int finishPosition;
 }

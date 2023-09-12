@@ -33,7 +33,7 @@ class CarControllerTest {
 
     @Test
     void saveCar() throws Exception {
-        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+        PilotEntity pilot = PilotEntity.builder().name("Jao").age("23")
                 .build();
         CarDtoRequest carDtoRequest = CarDtoRequest.builder().model("Focus").brand("Ford").pilot(pilot).year(null)
                 .build();
@@ -58,7 +58,7 @@ class CarControllerTest {
 
     @Test
     void getCArById() throws Exception {
-        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+        PilotEntity pilot = PilotEntity.builder().name("Jao").age("23")
                 .build();
         CarDtoResponse carDtoResponse = CarDtoResponse.builder().id("a24dfasd").brand("Ford").model("Focus").year(null)
                 .build();
@@ -99,7 +99,7 @@ class CarControllerTest {
     void updateCar() throws Exception {
         String carIdToUpdate = "asdasd";
 
-        PilotEntity pilot = PilotEntity.builder().id(null).name("Jao").age("23")
+        PilotEntity pilot = PilotEntity.builder().name("Jao").age("23")
                 .build();
         CarDtoRequest carDtoRequest = CarDtoRequest.builder().model("Focus").brand("Ford").pilot(pilot).year(null)
                 .build();
