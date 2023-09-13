@@ -1,5 +1,7 @@
 package jose.mshistory.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jose.mshistory.dtos.RaceDtoResponse;
 import jose.mshistory.entities.Car;
 import jose.mshistory.entities.Race;
@@ -13,6 +15,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,9 +32,14 @@ class HistoryServiceImplTest {
 
     @Spy
     private ModelMapper modelMapper;
+    @Mock
+    private ObjectMapper objectMapper;
 
     @InjectMocks
     private HistoryServiceImpl historyService;
+
+    @InjectMocks
+    private HistoryServiceRabbitConsumer historyServiceRabbitConsumer;
 
     private static final String EXISTING_RACE_ID = "existingRaceId";
     private static final String NON_EXISTING_RACE_ID = "nonExistingRaceId";
@@ -84,5 +92,17 @@ class HistoryServiceImplTest {
 
         assertThrows(IdNotFoundException.class, () -> historyService.getRaceById(NON_EXISTING_RACE_ID));
 
+    }
+
+    @Test
+    public void testSaveRaceResult() throws JsonProcessingException {
+        String raceJsonString = "{'id': 1, 'name': 'Race 1'}";
+
+        Race race = new Race();
+        when(objectMapper.readValue(raceJsonString, Race.class)).thenReturn(race);
+
+        historyServiceRabbitConsumer.saveRaceResult(raceJsonString);
+
+        verify(historyRepository, times(1)).save(race);
     }
 }
