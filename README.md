@@ -41,7 +41,7 @@ The application uses Docker Compose to run RabbitMQ, MongoDB database and Mongo 
    ```shell
    docker-compose up
    
-4. Tou need to mannually start the following microservices using maven:    
+4. Tou need to mannually start the following microservices using maven or through you IDE running the Main Application:    
    - ms-cars
    - ms-races
    - ms-history
