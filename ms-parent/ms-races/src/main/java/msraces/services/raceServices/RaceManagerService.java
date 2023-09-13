@@ -1,7 +1,7 @@
 package msraces.services.raceServices;
 
+import msraces.dtos.RaceResultResponse;
 import msraces.entities.Car;
-import msraces.entities.Race;
 import msraces.entities.Track;
 
 import java.util.List;
@@ -11,5 +11,5 @@ public interface RaceManagerService {
 
     List<Car> overtake(int position);
 
-    Race finishRace();
+    RaceResultResponse finishRace();
 }

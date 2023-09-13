@@ -1,10 +1,11 @@
 package msraces.controllers;
 
 import jakarta.validation.Valid;
+import msraces.dtos.RaceResultResponse;
 import msraces.entities.Car;
-import msraces.entities.Race;
 import msraces.entities.Track;
 import msraces.services.raceServices.RaceManagerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,9 +34,9 @@ public class RaceController {
     }
 
     @PostMapping("/finish")
-    public ResponseEntity<Race> finish(){
-        Race race = raceManagerService.finishRace();
-        return ResponseEntity.ok().body(race);
+    public ResponseEntity<RaceResultResponse> finish(){
+        RaceResultResponse race = raceManagerService.finishRace();
+        return new ResponseEntity<>(race, HttpStatus.CREATED);
     }
 
 

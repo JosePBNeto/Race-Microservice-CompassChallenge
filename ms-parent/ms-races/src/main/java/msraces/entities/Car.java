@@ -1,5 +1,6 @@
 package msraces.entities;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class Car {
 
     private String year;
 
+    @JsonAlias({"finishPosition"})
     private int raceCurrentPosition;
 }

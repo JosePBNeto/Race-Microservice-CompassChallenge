@@ -1,4 +1,6 @@
 package msraces.services.raceServicesImpl;
+import msraces.dtos.CarDtoResponse;
+import msraces.dtos.RaceResultResponse;
 import msraces.entities.Car;
 import msraces.entities.Race;
 import msraces.entities.Track;
@@ -50,10 +52,13 @@ public class RaceManagerServiceImpl implements RaceManagerService {
     }
 
     @Override
-    public Race finishRace() {
+    public RaceResultResponse finishRace() {
         Race race = new Race(null, track, carsToRace);
         raceResultPublisher.publishRaceResult(race);
-        return race;
+        List<CarDtoResponse> carDtoResponses = carsToRace.stream()
+                .map(this::mapToCarDtoResponse)
+                .toList();
+        return new RaceResultResponse(track, carDtoResponses);
     }
 
 
@@ -64,8 +69,12 @@ public class RaceManagerServiceImpl implements RaceManagerService {
     }
 
     private boolean isValidOvertakePosition(int position) {
-        int positionToOvertake = carsToRace.size() - 1;
-        return position >= 0 && position < positionToOvertake;
+        try {
+            int positionToOvertake = carsToRace.size() - 1;
+            return position >= 0 && position < positionToOvertake;
+        } catch (NullPointerException e) {
+            throw new InvalidCarToOvertakeException("You need to start a race");
+        }
     }
 
     private void updateRacePositions(int firstCarPosition, int secondCarPosition) {
@@ -74,5 +83,14 @@ public class RaceManagerServiceImpl implements RaceManagerService {
         carsToRace.get(secondCarPosition).setRaceCurrentPosition(newPosition + OVERTAKE_ONE_CAR);
     }
 
+    public CarDtoResponse mapToCarDtoResponse(Car car){
+        return CarDtoResponse.builder()
+                .model(car.getModel())
+                .brand(car.getBrand())
+                .pilot(car.getPilot())
+                .year(car.getYear())
+                .finishPosition(car.getRaceCurrentPosition())
+                .build();
+    }
 
 }
