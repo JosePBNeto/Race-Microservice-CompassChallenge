@@ -1,7 +1,5 @@
 package mscars.dtos;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -10,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import mscars.entity.PilotEntity;
 
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor

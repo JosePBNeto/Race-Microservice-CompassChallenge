@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jose.mshistory.entities.Race;
 import jose.mshistory.repositories.HistoryRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
@@ -14,14 +13,11 @@ import java.time.LocalDateTime;
 
 @Service
 public class HistoryServiceRabbitConsumer {
-
-    private final RabbitTemplate rabbitTemplate;
     private HistoryRepository historyRepository;
     private ObjectMapper objectMapper;
 
     @Autowired
-    public HistoryServiceRabbitConsumer(RabbitTemplate rabbitTemplate, HistoryRepository historyRepository, ObjectMapper objectMapper) {
-        this.rabbitTemplate = rabbitTemplate;
+    public HistoryServiceRabbitConsumer(HistoryRepository historyRepository, ObjectMapper objectMapper) {
         this.historyRepository = historyRepository;
         this.objectMapper = objectMapper;
     }
@@ -32,10 +28,9 @@ public class HistoryServiceRabbitConsumer {
         try {
             race = objectMapper.readValue(raceJsonString, Race.class);
             race.setRegisterTimeStamp(LocalDateTime.now());
-            System.out.println(race);
             historyRepository.save(race);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 

@@ -19,5 +19,4 @@ public class Track {
     private String country;
     @PastOrPresent(message = "Date must be in the past or present")
     private Date date;
-
 }
