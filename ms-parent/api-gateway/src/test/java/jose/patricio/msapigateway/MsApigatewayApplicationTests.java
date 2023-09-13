@@ -1,10 +1,10 @@
-package msraces;
+package jose.patricio.msapigateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MsRacesApplicationTests {
+class MsApigatewayApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,4 +1,4 @@
-package mscars.Controllers;
+package mscars.controllers;
 
 import mscars.dtos.CarDtoRequest;
 import mscars.dtos.CarDtoResponse;

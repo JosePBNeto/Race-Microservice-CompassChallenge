@@ -1,13 +1,13 @@
 package mscars.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mscars.entity.PilotEntity;
 
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,5 +22,6 @@ public class CarDtoRequest {
     @NotBlank(message = "Pilot must not be blank")
     private PilotEntity pilot;
     @NotBlank(message = "Year must not be blank")
-    private Date year;
+    @Pattern(regexp = "^(19|20)\\d{2}$", message = "Year should be in the format YYYY (e.g., 2022)")
+    private String year;
 }
