@@ -32,7 +32,8 @@ The application uses Docker Compose to run RabbitMQ, MongoDB database and Mongo 
 
 ### How to run the Application
 1. Build the project using Maven
-2. Run the command to build the docker images:
+2. Change to ms-parent directory
+3. Run the command to build the docker images:
    ```shell
    docker-compose build
    
