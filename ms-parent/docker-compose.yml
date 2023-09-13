@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - currency-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+#  ms-cars:
+#    image: josepbneto/ms-ms-cars:latest
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - currency-network
+#    depends_on:
+#      - naming-server
+#      - rabbitmq
+#      - mongodb
+#    environment:
+#      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+#      SPRING_DATA_MONGODB_URI: mongodb://root:root@mongodb:27017/db_ms-cars
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    container_name: mongo-express
+    networks:
+      - currency-network
+    ports:
+      - "8089:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - currency-network
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+#  naming-server:
+#    image: josepbneto/ms-eureka-naming-server:latest
+#    ports:
+#      - "8761:8761"
+#    networks:
+#      - currency-network
+
+#  api-gateway:
+#    image: josepbneto/ms-api-gateway:latest
+#    ports:
+#      - "8765:8765"
+#    networks:
+#      - currency-network
+#    depends_on:
+#      - naming-server
+#      - rabbitmq
+#    environment:
+#      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka
+#      RABBIT_URI: amqp://guest:guest@rabbitmq:5672
+#      SPRING_RABBITMQ_HOST: rabbitmq
+
+
+
+volumes:
+  mongodb_data:
+
+networks:
+  currency-network:
