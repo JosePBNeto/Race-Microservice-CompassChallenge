@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class RaceManagerServiceImpl implements RaceManagerService {
+
     private final CarSelectionService carSelectionService;
     private final RaceResultPublisher raceResultPublisher;
 
