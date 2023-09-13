@@ -1,0 +1,518 @@
+{
+	"info": {
+		"_postman_id": "c682e145-9e60-498b-bc23-a519a4c71df4",
+		"name": "Race-Microservices-Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28411536"
+	},
+	"item": [
+		{
+			"name": "ms-cars",
+			"item": [
+				{
+					"name": "SAVE CAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"brand\": \"Sonic\",\r\n        \"model\": \"Chevrolet\",\r\n        \"pilot\": {\r\n            \"name\": \"Jose\",\r\n            \"age\": \"427\"\r\n        },\r\n        \"year\": \"2015\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL CARS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cars",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cars/650228176fb08b79af31a77c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cars",
+								"650228176fb08b79af31a77c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE CAR",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\": \"Mini Cooper\",\r\n    \"model\": \"Mini\",\r\n    \"pilot\": {\r\n        \"name\": \"Joao\",\r\n        \"age\": \"16\"\r\n    },\r\n    \"year\": \"1990-09-02T00:00:00.000+00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/cars/650228176fb08b79af31a77c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cars",
+								"650228176fb08b79af31a77c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE CAR",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cars/64f7c4efb063f2028777c975",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cars",
+								"64f7c4efb063f2028777c975"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ms-races",
+			"item": [
+				{
+					"name": "START RACE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Monza Circuit\",\r\n    \"country\": \"Italy\",\r\n    \"date\": \"2023-09-09\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/races/start",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"races",
+								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OVERTAKE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/races/overtake/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"races",
+								"overtake",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FINISH RACE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/races/finish",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"races",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ms-history",
+			"item": [
+				{
+					"name": "GET ALL RACES HITORY",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/races/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"races",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET RACE BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/races/history/6500d03dfe93271af753dae7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"races",
+								"history",
+								"6500d03dfe93271af753dae7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API-GATEWAY",
+			"item": [
+				{
+					"name": "api-gateway-ms_cars",
+					"item": [
+						{
+							"name": "SAVE CAR",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"brand\": \"Audi \",\r\n        \"model\": \"Q3\",\r\n        \"pilot\": {\r\n            \"name\": \"Patricio\",\r\n            \"age\": \"49\"\r\n        },\r\n        \"year\": \"2023\"\r\n}\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8765/ms-cars/cars",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-cars",
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL CARS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/ms-cars/cars",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-cars",
+										"cars"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET BY ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/ms-cars/cars/64ffd8875a53b667900564be",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-cars",
+										"cars",
+										"64ffd8875a53b667900564be"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE CAR",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"brand\": \"Mini Cooper\",\r\n    \"model\": \"Mini S\",\r\n    \"pilot\": {\r\n        \"name\": \"Neto\",\r\n        \"age\": \"23\"\r\n    },\r\n    \"year\": \"1990-09-02T00:00:00.000+00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8765/ms-cars/cars/64fe6a3f76255c0ce640f41e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-cars",
+										"cars",
+										"64fe6a3f76255c0ce640f41e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE CAR",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/ms-cars/cars/64fe6a4076255c0ce640f41f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-cars",
+										"cars",
+										"64fe6a4076255c0ce640f41f"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "api-gateway-ms_races",
+					"item": [
+						{
+							"name": "START RACE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Monza Circuit\",\r\n    \"country\": \"Italy\",\r\n    \"date\": \"2023-09-09\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8765/ms-races/races/start",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-races",
+										"races",
+										"start"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OVERTAKE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/ms-races/races/overtake/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-races",
+										"races",
+										"overtake",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FINISH RACE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/ms-races/races/finish",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-races",
+										"races",
+										"finish"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "api-gateway-history",
+					"item": [
+						{
+							"name": "GET ALL RACES HITORY",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/ms-history/races/history",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-history",
+										"races",
+										"history"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET RACE BY ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8765/ms-history/races/history/6500d03dfe93271af753dae7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8765",
+									"path": [
+										"ms-history",
+										"races",
+										"history",
+										"6500d03dfe93271af753dae7"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
